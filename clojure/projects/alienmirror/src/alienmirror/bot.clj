@@ -1,4 +1,4 @@
-(ns alienmirror-example.bot
+(ns alienmirror.bot
   (:gen-class)
   (:require [clojure.string :as s]
             [environ.core :refer [env]]
