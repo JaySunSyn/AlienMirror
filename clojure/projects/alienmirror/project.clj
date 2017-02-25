@@ -1,4 +1,4 @@
-(defproject facebook-example "0.1.0-SNAPSHOT"
+(defproject alienmirror "0.1.0-SNAPSHOT"
   :description "Facebook Messenger Bot in Clojure"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -15,7 +15,7 @@
   :plugins [[lein-ring "0.9.7"]
             [lein-environ "1.1.0"]]
   ;:hooks [environ.leiningen.hooks]
-  :ring {:handler facebook-example.core/app}
-  :uberjar-name "facebook-example-standalone.jar")
+  :ring {:handler alienmirror.core/app}
+  :uberjar-name "alienmirror-standalone.jar")
   ; :profiles {:default [:base :dev :user]
   ;            #_:production #_{:env {:production false}}})

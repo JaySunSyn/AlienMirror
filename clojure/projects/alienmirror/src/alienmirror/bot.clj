@@ -1,8 +1,8 @@
-(ns facebook-example.bot
+(ns alienmirror.bot
   (:gen-class)
   (:require [clojure.string :as s]
             [environ.core :refer [env]]
-            [facebook-example.facebook :as fb]))
+            [alienmirror.facebook :as fb]))
 
 (defn on-message [payload]
   (println "on-message payload:")

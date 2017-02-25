@@ -1,11 +1,11 @@
-(ns facebook-example.core
+(ns alienmirror.core
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer :all]
             [ring.middleware.json :refer [wrap-json-params]]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
-            [facebook-example.facebook :as fb]
-            [facebook-example.bot :as bot]
+            [alienmirror.facebook :as fb]
+            [alienmirror.bot :as bot]
             ; Dependencies via Heroku Example
             [compojure.handler :refer [site]]
             [clojure.java.io :as io]
