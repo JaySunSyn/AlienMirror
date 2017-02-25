@@ -2,7 +2,7 @@
   (:gen-class)
   (:require [clojure.string :as s]
             [environ.core :refer [env]]
-            [alienmirror.alienmirror :as fb]
+            [alienmirror.facebook :as fb]
             [alienmirror.api.vision :as vision]))
 
 (defn on-message [payload]
