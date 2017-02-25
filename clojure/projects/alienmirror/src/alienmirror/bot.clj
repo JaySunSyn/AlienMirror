@@ -2,8 +2,8 @@
   (:gen-class)
   (:require [clojure.string :as s]
             [environ.core :refer [env]]
-            [alienmirror-example.alienmirror :as fb]
-            [alienmirror-example.api.vision :as vision]))
+            [alienmirror.alienmirror :as fb]
+            [alienmirror.api.vision :as vision]))
 
 (defn on-message [payload]
   (println "on-message payload:")
