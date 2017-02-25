@@ -35,7 +35,9 @@
 (defn on-image [sender-id attachment]
   ;;; see vision.clj:22 and https://cloud.google.com/vision/docs/how-to
   ;;; for further information about the vision api
-  (let [vision-response (vision/analyze (get-in attachment [:payload :url]))]
+  (println "happy non senses:")
+  (let [vision-response (vision/analyze (get-in attachment [:payload :url])) dummy (println (str vision-response))]
+
     (cond
       (contains? vision-response :faceAnnotations)
       (let [face-annotations (:faceAnnotations vision-response)]
