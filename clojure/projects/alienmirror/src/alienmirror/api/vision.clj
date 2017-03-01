@@ -33,7 +33,7 @@
 
 (defn handle-vision-response-async [{:keys [status headers body error]}]
   ;(json/read-str (:body @data) :key-fn keyword)
-  (println "yay")
+  (println "----- vision response --------")
   (println status)
   (println body)
   (println error)

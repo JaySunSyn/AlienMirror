@@ -3,7 +3,9 @@
   (:require [clojure.string :as s]
             [environ.core :refer [env]]
             [alienmirror.facebook :as fb]
-            [alienmirror.api.vision :as vision]))
+            [alienmirror.googleupload :as gu]
+            [alienmirror.api.vision :as vision]
+            [clojure.data.json :as json]))
 
 (defn on-message [payload]
   (println "on-message payload:")
@@ -40,12 +42,28 @@
 
     (cond
       (contains? vision-response :faceAnnotations)
-      (let [face-annotations (:faceAnnotations vision-response)]
-        (fb/send-message sender-id (fb/text-message (rand-nth compliments))))
+      (let [face-annotations (:faceAnnotations vision-response)
+lh_values ["UNKNOWN" "VERY_UNLIKELY" "UNLIKELY" "POSSIBLE" "LIKELY" "VERY_LIKELY"]
+lh_keys [:joyLikelihood :sorrowLikelihood :angerLikelihood :surpriseLikelihood :underExposedLikelihood :blurredLikelihood :headwareLikelihood]
+]
+        ;(fb/send-message sender-id (fb/text-message (rand-nth compliments)))
+(println "-------- faceann -----------")
+(spit "fan.txt" (json/write-str (str face-annotations))) 
+(println "-------- endfaceann -----------")
+
+(fb/send-message sender-id (fb/new-image-message "https://storage.googleapis.com/alienmirror/images/testframealien.png" (:sorrowLikelihood  (first face-annotations)) "This is the subject")))
+
       (contains? vision-response :labelAnnotations)
-      (let [label-annotations (:labelAnnotations vision-response)]
+      (let [label-annotations (:labelAnnotations vision-response)
+            face-annotations (:faceAnnotations vision-response)]
         (let [firstLabel (:description (first label-annotations))]
-          (fb/send-message sender-id (fb/text-message (str "Is that your " firstLabel "? It's beautiful!")))))
+            ;;(gu/upload-image "xyz" "filename")
+(println "-------- joylike -----------")
+(println vision-response)
+(println "-------- joylikeend -----------")
+(fb/send-message sender-id (fb/new-image-message "https://storage.googleapis.com/alienmirror/images/testframealien.png" "unsertitel"  "thesub"))
+
+))
       :else (fb/send-message sender-id (fb/text-message "Uhm, I'm not sure what that is, but its beautiful!")))))
 
 (defn on-audio [sender-id attachment]

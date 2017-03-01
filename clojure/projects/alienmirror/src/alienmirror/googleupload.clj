@@ -1,4 +1,4 @@
-(ns alienmirror.facebook
+(ns alienmirror.googleupload
   (:gen-class)
   (:require [clojure.string :as s]
             [org.httpkit.client :as http]
@@ -47,6 +47,21 @@
               (println @response))))
       (catch Exception e (str "caught exception: " (.getMessage e)))))
 
+(defn upload-image [base64 filename]
+(println "-------- in our own google upload -----------")  
+(try
+      (let [response (http/post "https://www.googleapis.com/upload/storage/v1/b/alienmirror/o"
+                      {:query-params {"uploadType" "media" "key" "AIzaSyAwUKV0eQha3wrhyvJm2KclDs9K1_jKh18" "name" filename}
+                       :headers {"Content-Type" "application/json"}
+                       :body base64
+                       :insecure? true})]
+        (if (= (:status @response) 200)
+            (println "Successfully sent message to FB")
+            (do
+              (println "Error sending message to FB:")
+              (println @response))))
+      (catch Exception e (str "caught exception: " (.getMessage e)))))
+
 (defn send-message [recipient-id message]
   (send-api {:recipient {:id recipient-id}
              :message message}))
@@ -54,11 +69,6 @@
 (defn image-message [image-url]
   {:attachment {:type "image"
                 :payload {:url image-url}}})
-
-(defn new-image-message [image-url title subtitle]
-(let [element {:title title :item_url image-url :image_url image-url :subtitle subtitle}]
-  {:attachment {:type "template"
-                :payload {:template_type "generic" :elements [element]}}}))
 
 (defn text-message [message-text]
   {:text message-text})
